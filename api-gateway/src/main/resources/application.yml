@@ -1,0 +1,58 @@
+server:
+  # You may change it when you deploy the project
+  # Or you can change the port when you run this service with `--server-port=????`
+  port: 8000
+spring:
+  application:
+    name: api-gateway
+  main:
+    web-application-type: reactive
+  cloud:
+    consul:
+      host: localhost # You may change it when you deploy this project
+      port: 8500 # You may change it when you deploy this project
+      enabled: true
+      discovery:
+        prefer-ip-address: true
+        service-name: ${spring.application.name}
+        health-check-path: /actuator/health
+        health-check-interval: 10s
+        health-check-timeout: 5s
+        health-check-critical-timeout: 30s
+    gateway:
+      routes:
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/user/** # It will be changed into real path later
+
+        - id: course-service
+          uri: lb://course-service
+          predicates:
+            - Path=/course/** # It will be changed into real path later
+
+        - id: blog-service
+          uri: lb://blog-service
+          predicates:
+            - Path=/blog/** # It will be changed into real path later
+
+        - id: user-course-service
+          uri: lb://user-course-service
+          predicates:
+            - Path=/user-course/** # It will be changed into real path later
+
+        - id: user-blog-service
+          uri: lb://user-blog-service
+          predicates:
+            - Path=/user-blog/** # It will be changed into real path later
+
+# health check used in consul
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+# end health check configuration
