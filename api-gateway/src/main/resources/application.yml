@@ -5,8 +5,6 @@ server:
 spring:
   application:
     name: api-gateway
-  main:
-    web-application-type: reactive
   cloud:
     consul:
       host: localhost # You may change it when you deploy this project
@@ -21,10 +19,15 @@ spring:
         health-check-critical-timeout: 30s
     gateway:
       routes:
-        - id: user-service
+        - id: user-service-user
           uri: lb://user-service
           predicates:
-            - Path=/user/** # It will be changed into real path later
+            - Path=/user/**
+
+        - id: user-service-verification-code
+          uri: lb://user-service
+          predicates:
+            - Path=/verification-code/**
 
         - id: course-service
           uri: lb://course-service
