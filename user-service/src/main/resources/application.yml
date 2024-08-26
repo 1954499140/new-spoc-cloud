@@ -22,7 +22,7 @@ spring:
     # create user 'user-service'@'%' identified by 'user-service-123456';
     # grant all privileges on *.* to 'user-service'@'%' with grant option;
     # flush privileges;
-    url: jdbc:mysql://localhost:3306/spoc # You may change it when you deploy this project
+    url: jdbc:mysql://localhost:3306/spoc_cloud_user # You may change it when you deploy this project
     username: user-service # You may change it when you deploy this project
     password: user-service-123456 # You may change it when you deploy this project
   jpa:
