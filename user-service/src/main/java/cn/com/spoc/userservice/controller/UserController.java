@@ -186,4 +186,16 @@ public class UserController {
         userService.updatePassword(username, password);
         return ResponseEntity.ok(Map.of("message", "Reset Password Successfully"));
     }
+
+    @PostMapping("/get-username-from-token")
+    public ResponseEntity<Map<String, String>> getUsernameFromToken(@RequestBody Map<String, String> request) {
+        var token = request.get("token");
+        return ResponseEntity.ok(Map.of("username", tokenService.getUsernameFromToken(token)));
+    }
+
+    @PostMapping("/get-identity-from-token")
+    public ResponseEntity<Map<String, String>> getIdentityFromToken(@RequestBody Map<String, String> request) {
+        var token = request.get("token");
+        return ResponseEntity.ok(Map.of("identity", tokenService.getIdentityFromToken(token)));
+    }
 }

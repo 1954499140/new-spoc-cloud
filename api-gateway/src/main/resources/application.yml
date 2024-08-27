@@ -19,6 +19,7 @@ spring:
         health-check-critical-timeout: 30s
     gateway:
       routes:
+        # user-service
         - id: user-service-user
           uri: lb://user-service
           predicates:
@@ -28,26 +29,70 @@ spring:
           uri: lb://user-service
           predicates:
             - Path=/verification-code/**
+        # end user-service
 
+        # course-service
         - id: course-service
           uri: lb://course-service
           predicates:
-            - Path=/course/** # It will be changed into real path later
+            - Path=/course-direct/**
 
+        - id: course-service-announcement
+          uri: lb://course-service
+          predicates:
+            - Path=/announcement-direct/**
+
+        - id: course-service-resources
+          uri: lb://course-service
+          predicates:
+            - Path=/course-resources-direct/**
+
+        - id: course-service-homework
+          uri: lb://course-service
+          predicates:
+            - Path=/homework-direct/**
+        # end course-service
+
+        # blog-service
         - id: blog-service
           uri: lb://blog-service
           predicates:
             - Path=/blog/** # It will be changed into real path later
+        # end blog-service
 
+        # user-course-service
         - id: user-course-service
           uri: lb://user-course-service
           predicates:
-            - Path=/user-course/** # It will be changed into real path later
+            - Path=/course/**
 
+        - id: user-course-service-announcement
+          uri: lb://user-course-service
+          predicates:
+            - Path=/announcement/**
+
+        - id: user-course-service-resources
+          uri: lb://user-course-service
+          predicates:
+            - Path=/course-resources/**
+
+        - id: user-course-service-homework
+          uri: lb://user-course-service
+          predicates:
+            - Path=/homework/**
+
+        - id: user-course-service-members
+          uri: lb://user-course-service
+          predicates:
+            - Path=/course-members/**
+        # end user-course-service
+
+        # user-blog service
         - id: user-blog-service
           uri: lb://user-blog-service
           predicates:
             - Path=/user-blog/** # It will be changed into real path later
+        # end user-blog-service
 
 # health check used in consul
 management:

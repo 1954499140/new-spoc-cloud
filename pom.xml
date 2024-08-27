@@ -17,6 +17,8 @@
 	<modules>
 		<module>api-gateway</module>
 		<module>user-service</module>
+		<module>course-service</module>
+		<module>user-course-service</module>
 	</modules>
 	<url/>
 	<licenses>
