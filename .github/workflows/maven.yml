@@ -33,7 +33,11 @@ jobs:
       run: mvn -B package --file user-course-service/pom.xml -DskipTests
     - name: Build and Package Service 3
       run: mvn -B package --file user-service/pom.xml -DskipTests
-
+    - name: Install Docker Compose
+      run: |
+        sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+        sudo chmod +x /usr/local/bin/docker-compose
+        docker-compose --version
     # Step 4: 登录 Docker Hub
     - name: Log in to Docker Hub
       uses: docker/login-action@v2
@@ -46,19 +50,19 @@ jobs:
       run: |
         # 处理 Service 1
         cd api-gateway
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/api-gateway:latest .
-        docker push ${{ secrets.DOCKER_USERNAME }}/api-gateway:latest
+        docker-compose -f docker-compose.yml build .
+        docker-compose -f docker-compose.yml push
 
         # 处理 Service 2
         cd ../course-service
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/course-service:latest .
-        docker push ${{ secrets.DOCKER_USERNAME }}/course-service:latest
+        docker-compose -f docker-compose.yml build .
+        docker-compose -f docker-compose.yml push
 
         # 处理 Service 3
         cd ../user-course-service
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/user-course-service:latest .
-        docker push ${{ secrets.DOCKER_USERNAME }}/user-course-service:latest
+        docker-compose -f docker-compose.yml build .
+        docker-compose -f docker-compose.yml push
 
         cd ../user-service
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/user-service:latest .
-        docker push ${{ secrets.DOCKER_USERNAME }}/user-service:latest
+        docker-compose -f docker-compose.yml build .
+        docker-compose -f docker-compose.yml push
