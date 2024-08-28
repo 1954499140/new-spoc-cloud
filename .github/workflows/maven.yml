@@ -60,5 +60,5 @@ jobs:
         docker push ${{ secrets.DOCKER_USERNAME }}/user-course-service:latest
 
         cd ../user-service
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/course-service:latest .
-        docker push ${{ secrets.DOCKER_USERNAME }}/course-service:latest
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/user-service:latest .
+        docker push ${{ secrets.DOCKER_USERNAME }}/user-service:latest
