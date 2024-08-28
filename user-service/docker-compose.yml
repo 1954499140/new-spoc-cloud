@@ -1,6 +1,7 @@
 services:
   user-service:
     build: .
+    image: user-service
     ports:
       - "8010:8010"
     environment:
