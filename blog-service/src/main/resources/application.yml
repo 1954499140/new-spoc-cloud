@@ -43,3 +43,13 @@ management:
     health:
       show-details: always
 # end health check configuration
+
+# configurations used in this service
+application:
+  blog-cover:
+    base-url: http://localhost:8000/blog-direct/blog-cover/ # You may change it when you deploy this project
+    default-url: https://file.imageplc.com/files/image/46cf6cc0-8b55-48d2-b690-13b8a5c15f92
+  column-cover:
+    base-url: http://localhost:8000/column-direct/column-cover # You may change it when you deploy this project
+    default-url: https://file.imageplc.com/files/image/46cf6cc0-8b55-48d2-b690-13b8a5c15f92
+# end configurations

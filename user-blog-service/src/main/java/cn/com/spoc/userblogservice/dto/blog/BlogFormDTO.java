@@ -1,10 +1,10 @@
-package cn.com.spoc.blogservice.dto.blog;
+package cn.com.spoc.userblogservice.dto.blog;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
 
 import java.util.List;
 
-@Data
+@AllArgsConstructor
 public class BlogFormDTO {
     private String blogTitle;
     private String blogColumn;
