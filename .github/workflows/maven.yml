@@ -44,25 +44,28 @@ jobs:
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
+    
+    - name: Generate timestamp
+      id: timestamp
+      run: echo "::set-output name=timestamp::$(date +%s)"
 
     # Step 5: 构建并推送 Docker 镜像
     - name: Build and Push Docker images
       run: |
-        # 处理 Service 1
         cd api-gateway
-        docker-compose -f docker-compose.yml build
-        docker-compose -f docker-compose.yml push
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/api-gateway:${{ steps.timestamp.outputs.timestamp }} .
+        docker push ${{ secrets.DOCKER_USERNAME }}/api-gateway:${{ steps.timestamp.outputs.timestamp }}
 
         # 处理 Service 2
         cd ../course-service
-        docker-compose -f docker-compose.yml build
-        docker-compose -f docker-compose.yml push
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/course-service:${{ steps.timestamp.outputs.timestamp }} .
+        docker push ${{ secrets.DOCKER_USERNAME }}/course-service:${{ steps.timestamp.outputs.timestamp }}
 
         # 处理 Service 3
         cd ../user-course-service
-        docker-compose -f docker-compose.yml build
-        docker-compose -f docker-compose.yml push
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/user-course-service:${{ steps.timestamp.outputs.timestamp }} .
+        docker push ${{ secrets.DOCKER_USERNAME }}/user-course-service:${{ steps.timestamp.outputs.timestamp }}
 
         cd ../user-service
-        docker-compose -f docker-compose.yml build
-        docker-compose -f docker-compose.yml push
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/user-service:${{ steps.timestamp.outputs.timestamp }} .
+        docker push ${{ secrets.DOCKER_USERNAME }}/user-service:${{ steps.timestamp.outputs.timestamp }}
