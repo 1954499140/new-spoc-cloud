@@ -2,7 +2,7 @@ version: '3'  # Docker Compose 文件的版本，选择合适的版本
 
 services:
   api-gateway:
-    image: api-gateway
+    image: 13960819596/api-gateway
     build: .           # 指定构建当前目录下的 Dockerfile
     ports:
       - "8000:8000"    # 将容器的8000端口映射到主机的8000端口

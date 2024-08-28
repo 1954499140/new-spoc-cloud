@@ -1,7 +1,7 @@
 services:
   course-service:
     build: .
-    image: course-service
+    image: 13960819596/course-service
     ports:
       - "8020:8020"
     environment:
