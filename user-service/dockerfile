@@ -1,8 +1,18 @@
-# 使用 OpenJDK 17 作为基础镜像
-FROM openjdk:17-jdk-alpine
+FROM openjdk:17-jdk-buster
 
-# 将 JAR 文件复制到容器中
+# 更新包列表并安装 Redis
+RUN apt-get update && \
+    apt-get install -y redis-server && \
+    rm -rf /var/lib/apt/lists/*
+
+# 设置容器所有者
+MAINTAINER kong
+
+# 把当前文件夹下的 jar 包添加到容器内
 COPY target/*.jar /user-service.jar
 
-# 指定容器启动时运行的命令
-ENTRYPOINT ["java", "-jar", "/user-service.jar"]
+# 暴露应用和 Redis 的端口
+EXPOSE 8080 6379
+
+# 启动 Redis 并启动 Spring Boot 应用
+CMD service redis-server start && java -jar /user-service.jar -D spring.profiles.active=release
