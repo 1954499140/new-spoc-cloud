@@ -1,12 +1,4 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
-
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-name: Java CI with Maven
+name: Java CI with Maven for Microservices
 
 on:
   push:
@@ -16,24 +8,44 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
+
     - name: Set up JDK 17
       uses: actions/setup-java@v4
       with:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml -DskipTests
-    - name: Upload build artifact
+
+    # 打包第一个微服务
+    - name: Build and Package Service 1
+      run: mvn -B package --file api-gateway/pom.xml -DskipTests
+
+    - name: Upload Service 1 Artifact
       uses: actions/upload-artifact@v3
       with:
-        name: build-artifact
-        path: target/*.jar
+        name: service-1-artifact
+        path: api-gateway/target/*.jar
 
-      
- 
+    # 打包第二个微服务
+    - name: Build and Package Service 2
+      run: mvn -B package --file course-service/pom.xml -DskipTests
+
+    - name: Upload Service 2 Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: service-2-artifact
+        path: course-service/target/*.jar
+
+    # 打包第三个微服务
+    - name: Build and Package Service 3
+      run: mvn -B package --file user-course-service/pom.xml -DskipTests
+
+    - name: Upload Service 3 Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: service-3-artifact
+        path: service-3/target/*.jar
