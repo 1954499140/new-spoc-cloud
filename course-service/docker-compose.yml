@@ -9,7 +9,7 @@ services:
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=spoc-server-123456
     networks:
-      - mynetwork
+      - course-network
     depends_on:
       - db
   db:
@@ -20,7 +20,7 @@ services:
     ports:
       - "3306:3306"
     networks:
-      - mynetwork
+      - course-network
 networks:
   course-network:
     driver: bridge
