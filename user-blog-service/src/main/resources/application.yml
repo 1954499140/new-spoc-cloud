@@ -1,0 +1,102 @@
+server:
+  port: 8050
+spring:
+  application:
+    name: user-blog-service
+  cloud:
+    consul:
+      host: localhost # You may change it when you deploy this project
+      port: 8500 # You may change it when you deploy this project
+      enabled: true
+      discovery:
+        prefer-ip-address: true
+        service-name: ${spring.application.name}
+        health-check-path: /actuator/health
+        health-check-interval: 10s
+        health-check-timeout: 5s
+        health-check-critical-timeout: 30s
+    openfeign:
+      client:
+        config:
+          default:
+            connect-timeout: 5000 # Timeout Control by OpenFeign
+            read-timeout: 10000 # Timeout Control by OpenFeign
+      httpclient:
+        hc5:
+          enabled: true # Use Apache Http Client 5
+      compression: # Request and Response Compression
+        request:
+          enabled: true
+          mime-types: application/json
+          min-request-size: 2048
+        response:
+          enabled: true
+      circuitbreaker: # Use Circuit Breaker
+        enabled: true
+        group:
+          enabled: true
+
+# health check used in consul
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+# end health check configuration
+
+# Feign Logging
+logging:
+  level:
+    cn:
+      com:
+        spoc:
+          usercourseservice:
+            feign:
+              BlogServiceOpenFeign: debug
+              UserServiceOpenFeign: debug
+# End Feign Logging
+
+# Resilience4J
+resilience4j:
+  circuitbreaker: # Circuit Breaker
+    configs:
+      default:
+        failure-rate-threshold: 50
+        sliding-window-type: COUNT_BASED
+        sliding-window-size: 6
+        minimum-number-of-calls: 6
+        automatic-transition-from-open-to-half-open-enabled: true
+        wait-duration-in-open-state:
+          seconds: 5
+        permitted-number-of-calls-in-half-open-state: 2
+        record-exceptions:
+          - java.lang.Exception
+  ratelimiter: # Rate Limiter
+    configs:
+      default:
+        limit-for-period: 5
+        limit-refresh-period:
+          seconds: 1
+        timeout-duration:
+          seconds: 1
+  bulkhead: # Bulkhead
+    configs:
+      default:
+        max-concurrent-calls: 5
+        max-wait-duration:
+          seconds: 1
+  thread-pool-bulkhead: # type = Bulkhead.Type.THREADPOOL
+    configs:
+      default:
+        core-thread-pool-size: 10
+        max-thread-pool-size: 20
+        queue-capacity: 20
+  timelimiter:
+    configs:
+      default:
+        timeout-duration:
+          seconds: 10
+# End Resilience4J
