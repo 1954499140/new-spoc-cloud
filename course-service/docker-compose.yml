@@ -1,0 +1,27 @@
+services:
+  course-service:
+    build: .
+    image: 13960819596/course-service
+    ports:
+      - "8020:8020"
+    environment:
+      - SPRING_PROFILES_ACTIVE=release
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/spoc
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=spoc-server-123456
+    networks:
+      - course-network
+    depends_on:
+      - db
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: spoc-server-123456
+      MYSQL_DATABASE: spoc
+    ports:
+      - "3306:3306"
+    networks:
+      - course-network
+networks:
+  course-network:
+    driver: bridge

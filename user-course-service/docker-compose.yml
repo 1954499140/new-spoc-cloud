@@ -1,0 +1,6 @@
+services:
+  user-course-service:
+    image: 13960819596/user-course-service
+    build: .
+    ports:
+      - "8000:8000"

@@ -1,0 +1,27 @@
+services:
+  user-service:
+    build: .
+    image: 13960819596/user-service
+    ports:
+      - "8010:8010"
+    environment:
+      - SPRING_PROFILES_ACTIVE=release
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/spoc
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=spoc-server-123456
+    networks:
+      - mynetwork
+    depends_on:
+      - db
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: spoc-server-123456
+      MYSQL_DATABASE: spoc
+    ports:
+      - "3306:3306"
+    networks:
+      - mynetwork
+networks:
+  mynetwork:
+    driver: bridge

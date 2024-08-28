@@ -1,0 +1,8 @@
+# 使用 OpenJDK 17 作为基础镜像
+FROM openjdk:17-jdk-alpine
+
+# 将 JAR 文件复制到容器中
+COPY target/*.jar /user-course-service.jar
+
+# 指定容器启动时运行的命令
+ENTRYPOINT ["java", "-jar", "/user-course-service.jar"]

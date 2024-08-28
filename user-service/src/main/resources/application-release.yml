@@ -1,0 +1,71 @@
+server:
+  port: 8010
+spring:
+  application:
+    name: user-service
+  cloud:
+    consul:
+      host: localhost # You may change it when you deploy this project
+      port: 8500 # You may change it when you deploy this project
+      enabled: true
+      discovery:
+        prefer-ip-address: true
+        service-name: ${spring.application.name}
+        health-check-path: /actuator/health
+        health-check-interval: 10s
+        health-check-timeout: 5s
+        health-check-critical-timeout: 30s
+#   datasource:
+    # You need to create a database before run this service
+    # So you may change the following configurations
+    # You can run the following codes in your MySQL terminal
+    # create user 'user-service'@'%' identified by 'user-service-123456';
+    # grant all privileges on *.* to 'user-service'@'%' with grant option;
+    # flush privileges;
+    # url: jdbc:mysql://localhost:3306/spoc_cloud_user # You may change it when you deploy this project
+    # username: user-service # You may change it when you deploy this project
+    # password: user-service-123456 # You may change it when you deploy this project
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+  mail:
+    host: smtp.qq.com
+    port: 587
+    username: 2218723143@qq.com
+    password: abcqdrjxrrvidicj
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+  data:
+    redis:
+      host: localhost # You may change it when you deploy this project
+      port: 6379 # You may change it when you deploy this project
+
+# health check used in consul
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+# end health check configuration
+
+# configurations used in this service
+application:
+  default-avatar-url: https://file.imageplc.com/files/image/0278bcf1-32c0-4723-b237-0daaadc07d6d
+  # "http://localhost:8000" is the url of api gateway
+  avatar-base-url: http://localhost:8000/user/avatar/ # You may change it when you deploy this project
+# end configurations used in this service
