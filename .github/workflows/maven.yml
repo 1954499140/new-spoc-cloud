@@ -69,3 +69,9 @@ jobs:
         cd ../user-service
         docker build -t ${{ secrets.DOCKER_USERNAME }}/user-service:${{ steps.timestamp.outputs.timestamp }} .
         docker push ${{ secrets.DOCKER_USERNAME }}/user-service:${{ steps.timestamp.outputs.timestamp }}
+    
+    - name: SSH to Remote Server and Deploy
+      run: |
+        sshpass -p "${{ secrets.PASSWORD }}" ssh -o StrictHostKeyChecking=no "${{ secrets.USERNAME }}"@"${{ secrets.TARGET }}" << 'EOF'
+          sh /usr/k3stest/update-backend.sh ${{ steps.timestamp.outputs.timestamp }}
+        EOF
