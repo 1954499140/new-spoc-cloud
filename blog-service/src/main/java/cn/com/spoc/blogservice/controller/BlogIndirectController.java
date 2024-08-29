@@ -39,6 +39,7 @@ public class BlogIndirectController {
                     tags.add(tagEntity);
                 }
             }
+            System.out.print("这是文章title\n\n\n\n\n\n\n\n\n\n\n"+blogForm.getBlogTitle());
             var column = new ColumnEntity(blogForm.getBlogColumn());
             var blog = new BlogEntity(blogForm.getBlogTitle(), blogForm.getUsername(), column, blogCover, blogForm.getBlogContent());
             blogService.saveBlog(blog, tags);

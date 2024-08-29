@@ -16,6 +16,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 public class BlogEntity {
+
     @Id
     @Column(name = "blog_title", columnDefinition = "varchar(255)")
     private String blogTitle;
