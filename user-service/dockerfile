@@ -12,7 +12,7 @@ MAINTAINER kong
 COPY target/*.jar /user-service.jar
 
 # 暴露应用和 Redis 的端口
-EXPOSE 8080 6379
+EXPOSE 8010 6379
 
 # 启动 Redis 并启动 Spring Boot 应用
 CMD service redis-server start && java -jar /user-service.jar
