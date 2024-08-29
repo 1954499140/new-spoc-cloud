@@ -5,8 +5,8 @@ spring:
     name: user-service
   cloud:
     consul:
-      host: 60.205.206.30 # You may change it when you deploy this project
-      port: 80 # You may change it when you deploy this project
+      host: consul # You may change it when you deploy this project
+      port: 8500 # You may change it when you deploy this project
       enabled: true
       discovery:
         prefer-ip-address: true
