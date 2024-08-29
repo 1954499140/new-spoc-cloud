@@ -61,7 +61,15 @@ jobs:
         cd ../user-course-service
         docker build -t ${{ secrets.DOCKER_USERNAME }}/user-course-service .
         docker push ${{ secrets.DOCKER_USERNAME }}/user-course-service
+        
+        cd ../user-blog-service
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/user-blog-service .
+        docker push ${{ secrets.DOCKER_USERNAME }}/user-blog-service
 
+        cd ../blog-service
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/blog-service .
+        docker push ${{ secrets.DOCKER_USERNAME }}/blog-service
+        
         cd ../user-service
         docker build -t ${{ secrets.DOCKER_USERNAME }}/user-service .
         docker push ${{ secrets.DOCKER_USERNAME }}/user-service
