@@ -12,7 +12,7 @@ spring:
         prefer-ip-address: true
         service-name: ${spring.application.name}
         health-check-path: /actuator/health
-        health-check-interval: 10s
+        health-check-interval: 30s
         health-check-timeout: 5s
         health-check-critical-timeout: 30s
   datasource:
