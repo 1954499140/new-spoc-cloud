@@ -15,8 +15,6 @@ spring:
         health-check-interval: 10s
         health-check-timeout: 5s
         health-check-critical-timeout: 30s
-        host: 101.200.12.67
-        port: 8010
   # datasource:
   #   # You need to create a database before run this service
   #   # So you may change the following configurations
