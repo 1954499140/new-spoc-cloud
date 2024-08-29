@@ -63,11 +63,11 @@ jobs:
         docker push ${{ secrets.DOCKER_USERNAME }}/user-course-service
         
         cd ../user-bloge-service
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/user-bloge-service .
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/user-blog-service .
         docker push ${{ secrets.DOCKER_USERNAME }}/user-bloge-service
 
         cd ../bloge-service
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/bloge-service .
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/blog-service .
         docker push ${{ secrets.DOCKER_USERNAME }}/bloge-service
         
         cd ../user-service
