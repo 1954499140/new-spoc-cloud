@@ -10,7 +10,6 @@ spring:
       enabled: true
       discovery:
         prefer-ip-address: true
-        service-name: ${spring.application.name}
         health-check-path: /actuator/health
         health-check-interval: 10s
         health-check-timeout: 5s
