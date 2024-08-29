@@ -4,7 +4,6 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - SPRING_PROFILES_ACTIVE=release
       - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/spoc
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=spoc-server-123456
