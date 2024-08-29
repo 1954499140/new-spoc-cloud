@@ -15,4 +15,4 @@ COPY target/*.jar /user-service.jar
 EXPOSE 8080 6379
 
 # 启动 Redis 并启动 Spring Boot 应用
-CMD service redis-server start && java -jar /user-service.jar -D spring.profiles.active=release
+CMD service redis-server start && java -jar /user-service.jar
