@@ -11,7 +11,7 @@ spring:
       discovery:
         prefer-ip-address: true
         health-check-path: /actuator/health
-        health-check-interval: 10s
+        health-check-interval: 30s
         health-check-timeout: 5s
         health-check-critical-timeout: 60s
   # datasource:
