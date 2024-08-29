@@ -6,3 +6,4 @@ COPY target/*.jar /course-service.jar
 
 # 指定容器启动时运行的命令
 ENTRYPOINT ["java", "-jar", "/user-blog-service.jar"]
+   
