@@ -19,6 +19,8 @@
 		<module>user-service</module>
 		<module>course-service</module>
 		<module>user-course-service</module>
+		<module>blog-service</module>
+		<module>user-blog-service</module>
 	</modules>
 	<url/>
 	<licenses>

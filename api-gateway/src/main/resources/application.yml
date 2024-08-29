@@ -57,7 +57,16 @@ spring:
         - id: blog-service
           uri: lb://blog-service
           predicates:
-            - Path=/blog/** # It will be changed into real path later
+            - Path=/blog-direct/**
+
+        - id: blog-service-column
+          uri: lb://blog-service
+          predicates:
+            - Path=/column-direct/**
+        - id: blog-service-comment
+          uri: lb://blog-service
+          predicates:
+            - Path=/comment-direct/**
         # end blog-service
 
         # user-course-service
@@ -91,7 +100,15 @@ spring:
         - id: user-blog-service
           uri: lb://user-blog-service
           predicates:
-            - Path=/user-blog/** # It will be changed into real path later
+            - Path=/blogs/**
+        - id: user-blog-service-comment
+          uri: lb://user-blog-service
+          predicates:
+            - Path=/comments/**
+        - id: user-blog-service-attention
+          uri: lb://user-blog-service
+          predicates:
+            - Path=/attention/**
         # end user-blog-service
 
 # health check used in consul

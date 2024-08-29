@@ -1,0 +1,55 @@
+server:
+  port: 8040
+spring:
+  application:
+    name: blog-service
+  cloud:
+    consul:
+      host: localhost # You may change it when you deploy this project
+      port: 8500 # You may change it when you deploy this project
+      enabled: true
+      discovery:
+        prefer-ip-address: true
+        service-name: ${spring.application.name}
+        health-check-path: /actuator/health
+        health-check-interval: 10s
+        health-check-timeout: 5s
+        health-check-critical-timeout: 30s
+  datasource:
+    # You need to create a database before run this service
+    # So you may change the following configurations
+    # You can run the following codes in your MySQL terminal
+    # create user 'blog-service'@'%' identified by 'blog-service-123456';
+    # grant all privileges on *.* to 'blog-service'@'%' with grant option;
+    # flush privileges;
+    url: jdbc:mysql://localhost:3306/spoc_cloud_blog # You may change it when you deploy this project
+    username: blog-service # You may change it when you deploy this project
+    password: blog-service-123456 # You may change it when you deploy this project
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+# health check used in consul
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+# end health check configuration
+
+# configurations used in this service
+application:
+  blog-cover:
+    base-url: http://localhost:8000/blog-direct/blog-cover/ # You may change it when you deploy this project
+    default-url: https://file.imageplc.com/files/image/46cf6cc0-8b55-48d2-b690-13b8a5c15f92
+  column-cover:
+    base-url: http://localhost:8000/column-direct/column-cover # You may change it when you deploy this project
+    default-url: https://file.imageplc.com/files/image/46cf6cc0-8b55-48d2-b690-13b8a5c15f92
+# end configurations
