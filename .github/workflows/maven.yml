@@ -66,8 +66,3 @@ jobs:
         docker build -t ${{ secrets.DOCKER_USERNAME }}/user-service .
         docker push ${{ secrets.DOCKER_USERNAME }}/user-service
     
-    - name: SSH to Remote Server and Deploy
-      run: |
-        sshpass -p "${{ secrets.PASSWORD }}" ssh -o StrictHostKeyChecking=no "${{ secrets.USERNAME }}"@"${{ secrets.TARGET1 }}" << 'EOF'
-          sh /usr/docker/update.sh ${{ steps.timestamp.outputs.timestamp }}
-        EOF
