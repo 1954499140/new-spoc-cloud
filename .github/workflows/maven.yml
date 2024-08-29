@@ -31,8 +31,12 @@ jobs:
 
     - name: Build and Package Service 3
       run: mvn -B package --file user-course-service/pom.xml -DskipTests
-    - name: Build and Package Service 3
+    - name: Build and Package Service 4
       run: mvn -B package --file user-service/pom.xml -DskipTests
+    - name: Build and Package Service 5
+      run: mvn -B package --file blog-service/pom.xml -DskipTests
+    - name: Build and Package Service 6
+      run: mvn -B package --file user-blog-service/pom.xml -DskipTests
       
     # Step 4: 登录 Docker Hub
     - name: Log in to Docker Hub
@@ -62,8 +66,8 @@ jobs:
         docker build -t ${{ secrets.DOCKER_USERNAME }}/user-service .
         docker push ${{ secrets.DOCKER_USERNAME }}/user-service
     
-    # - name: SSH to Remote Server and Deploy
-    #   run: |
-    #     sshpass -p "${{ secrets.PASSWORD }}" ssh -o StrictHostKeyChecking=no "${{ secrets.USERNAME }}"@"${{ secrets.TARGET }}" << 'EOF'
-    #       sh /usr/k3stest/update-backend.sh ${{ steps.timestamp.outputs.timestamp }}
-    #     EOF
+    - name: SSH to Remote Server and Deploy
+      run: |
+        sshpass -p "${{ secrets.PASSWORD }}" ssh -o StrictHostKeyChecking=no "${{ secrets.USERNAME }}"@"${{ secrets.TARGET }}" << 'EOF'
+          sh /usr/docker/update.sh ${{ steps.timestamp.outputs.timestamp }}
+        EOF
